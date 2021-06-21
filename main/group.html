@@ -2,12 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
     <title>Group</title>
 </head>
 <body>
 
-<div id="group">
+<style>
+    body{
+        margin: 1vw;
+        padding: 1vw;
+    }
+    #bottom{
+        margin-top: 70vh;
+    }
+</style>
 
+<div id="group">
+</div>
+
+<div id="firstButton">
+<button type="button" class="btn btn-outline-primary">Update group</button>
+<button type="button" class="btn btn-outline-danger" onclick="deleteGroup()">Delete group</button>
+<button type="button" class="btn btn-outline-primary">Show products in this group</button>
+</div>
+
+<div id="bottom">
+<button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -30,6 +54,19 @@
                 $("#group").append("<p id='groupName' class='title'> "+ obj["groupname"]+
                     "</p><hr style='margin: 5px;'>" +
                     "<p style='font-size: 13px;'>"+obj["description"]);
+            }
+        });
+    }
+
+    function deleteGroup(){
+        if(!confirm("Do you really want to delete this group?"))
+            return;
+
+        $.ajax({
+            url: "http://localhost:5000/api/group/"+sessionStorage.getItem("group"),
+            method: 'DELETE',
+            success: function (){
+                document.location = "main.html";
             }
         });
     }

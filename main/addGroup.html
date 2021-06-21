@@ -65,10 +65,11 @@
         $.ajax({
             url: "http://localhost:5000/api/group?"+query,
             method: "PUT",
-            success: alert("OK")
+            success: function (){
+                document.location= 'main.html';
+            }
         });
 
-         document.location= 'main.html';
     }
 
 </script>
