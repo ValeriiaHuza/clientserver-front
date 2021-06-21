@@ -14,8 +14,8 @@
 
 <div id="main">
 
-    <button id="addGroup" type="button" class="btn btn-outline-primary" onclick="document.location='addGroup.html'">add group</button>
-    <button id="addProduct" type="button" class="btn btn-outline-primary">add product</button>
+    <button id="addGroup" type="button" class="btn btn-outline-light" onclick="document.location='addGroup.html'">add group</button>
+    <button id="addProduct" type="button" class="btn btn-outline-light">add product</button>
 
 
     <p class="text">Groups</p>
@@ -59,7 +59,7 @@
 
         console.log("fill");
         jQuery.ajax({
-            url:'http://localhost:5000/api/group',
+            url:'http://localhost:5000/api/groups',
             method:'GET',
             success : function (json) {
                 console.log(json);
@@ -68,10 +68,15 @@
             for(var i=0; i<array.length; i++) {
                 var ar = array[i].split("#");
                 $(".groups")
-                    .append("<button type='button' class='list-group-item list-group-item-action'>" + ar[0] + "</button>");
+                    .append("<button id='group/"+ ar[2] +"' onclick='clickOnGroup(" + ar[2]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + " (id = " + (i+1) + ")</button>");
             }
             }
-        })
+        });
+    }
+
+    function clickOnGroup(id){
+        sessionStorage.setItem("group",id);
+        document.location='group.html';
     }
 
 </script>

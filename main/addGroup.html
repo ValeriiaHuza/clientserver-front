@@ -10,15 +10,37 @@
     <title>Add group</title>
 </head>
 <body>
+<style>
+    body{
+        padding: 5vw;
+    }
+    .form-floating{
+        width: 50%;
+        margin: 1vw 1vw 1vw 25%;
+    }
 
-<span>Group name:</span>
-<input id='groupName' type='text' maxlength='20' class='form-control form-control-sm'>
-<span>Description:</span>
-<input id='groupDescription' type='text' style='margin-bottom: 10px;' class='form-control form-control-sm'>
+    #button{
+        width: 50%;
+        margin-left: 25%;
+    }
+</style>
 
-<a onclick='addGroupToDB()' class='btn btn-info btn-sm btn-block '>Add</a>
+ <div id="alertPlace"></div>
+
+<div class="form-floating mb-3">
+    <input id="groupName" type="text" class="form-control" >
+    <label for="groupName">Group name</label>
+</div>
+<div class="form-floating">
+    <input id="groupDescription" type="text" class="form-control">
+    <label for="groupDescription">Description</label>
+</div>
+
+<a id="button" onclick='addGroupToDB()' class='btn btn-outline-primary'>Add</a>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
 
 <script>
 
@@ -30,7 +52,10 @@
 
         if(groupName.length<1 || groupDescription.length<1){
             alert("Error");
-            return;
+            //
+            // $('#alertPlace').addClass("alert alert-warning alert-dismissible fade show");
+            // $('#alertPlace').append("Error<button type='button' className='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>")
+             return;
         }
 
 
