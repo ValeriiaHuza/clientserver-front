@@ -1,0 +1,27 @@
+body {
+    background: #709fdc;!important;
+}
+
+.btn{
+    display: flex;
+    column-count: 2;
+    margin: 2vw;
+}
+
+.text{
+    margin-left: 26vw;
+    display: flex;
+    float: left;
+    column-count: 2;
+}
+
+#content{
+    margin-left: 20vw;
+    display: flex;
+    float: left;
+    column-count: 2;
+}
+
+.list{
+    margin: 5vw
+}

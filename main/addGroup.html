@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+    <title>Add group</title>
+</head>
+<body>
+
+<span>Group name:</span>
+<input id='groupName' type='text' maxlength='20' class='form-control form-control-sm'>
+<span>Description:</span>
+<input id='groupDescription' type='text' style='margin-bottom: 10px;' class='form-control form-control-sm'>
+
+<a onclick='addGroupToDB()' class='btn btn-info btn-sm btn-block '>Add</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+    function addGroupToDB(){
+
+        const groupName = $('#groupName').val();
+        console.log(groupName);
+        const groupDescription = $('#groupDescription').val();
+
+        if(groupName.length<1 || groupDescription.length<1){
+            alert("Error");
+            return;
+        }
+
+
+        const query = "name="+groupName+"&description="+groupDescription;
+
+        console.log("guery - " + query);
+        $.ajax({
+            url: "http://localhost:5000/api/group?"+query,
+            method: "PUT",
+            success: alert("OK")
+        });
+
+         document.location= 'main.html';
+    }
+
+</script>
+</body>
+</html>
