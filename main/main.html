@@ -74,11 +74,37 @@
         });
     }
 
+    fillGoods();
+
+    function fillGoods(){
+        $(".good").empty();
+
+        console.log("fill");
+        jQuery.ajax({
+            url:'http://localhost:5000/api/goods',
+            method:'GET',
+            success : function (json) {
+                console.log(json);
+                var array = JSON.parse(json);
+                console.log("array - " + array);
+                for(var i=0; i<array.length; i++) {
+                    var ar = array[i].split("#");
+                    $(".good")
+                        .append("<button id='goods/"+ ar[2] +"' onclick='clickOnGroup(" + ar[2]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + " (id = " + (i+1) + ")</button>");
+                }
+            }
+        });
+    }
+
     function clickOnGroup(id){
         sessionStorage.setItem("group",id);
         document.location='group.html';
     }
 
+    function clickOnProduct(id){
+        sessionStorage.setItem("good",id);
+        document.location='good.html';
+    }
 </script>
 </body>
 </html>
