@@ -40,13 +40,63 @@
         margin-left: 20vw;
         margin-right: 20vw;
     }
+
+    #message{
+        display: none;
+        position:fixed;
+        z-index:4;
+        top:0;
+        left:0;
+        width:100vw;
+        height:100vh;
+        background: rgba(0, 0, 0, 0.5);
+        overflow: auto;
+    }
+    #messagebox{
+        vertical-align: middle;
+        position: absolute;
+        top:20vh;
+        left:25vw;
+        width:50vw;
+        height: auto;
+        margin-bottom:10%;
+        padding:  30px;
+    }
+    #back{
+        vertical-align: middle;
+        position: absolute;
+        top:70vh;
+        left:37vw;
+        width:25vw;
+    }
+
+    .form-floating{
+        margin: 1vw;
+    }
+
 </style>
+
+<div id="message" class="messagepanel " >
+    <div id="messagebox" class="card" >
+        <div class="form-floating mb-3">
+            <input id="groupName" type="text" class="form-control" >
+            <label for="groupName">Group name</label>
+        </div>
+        <div class="form-floating">
+            <input id="groupDescription" type="text" class="form-control">
+            <label for="groupDescription">Description</label>
+        </div>
+
+        <a id="button" onclick='editGroup()' class='btn btn-outline-primary'>Add</a>
+    </div>
+    <button id="back"  type="button" class="btn btn-primary" onclick="back()">Back</button>
+</div>
 
 <div id="group">
 </div>
 
 <div id="firstButton">
-<button type="button" class="btn btn-outline-primary">Update group</button>
+<button type="button" class="btn btn-outline-primary" onclick="updateGroup()">Update group</button>
 <button type="button" class="btn btn-outline-danger" onclick="deleteGroup()">Delete group</button>
 <button type="button" class="btn btn-outline-primary" onclick="show()" >Show products in this group</button>
 </div>
@@ -55,6 +105,8 @@
     <div class="list-group goods">
     </div>
 </div>
+
+
 
 <div id="bottom">
 <button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
@@ -68,6 +120,7 @@
     getGroup();
 
     function getGroup(){
+        back();
         jQuery.ajax({
             url: "http://localhost:5000/api/group/"+sessionStorage.getItem("group"),
             method: 'GET',
@@ -119,6 +172,42 @@
     function clickOnProduct(id){
         sessionStorage.setItem("good",id);
         document.location='good.html';
+    }
+
+
+    function back() {
+        $(".messagepanel").hide();
+
+    }
+
+    function updateGroup(){
+        $(".messagepanel").show();
+        $("#messagebox").show();
+    }
+
+    function editGroup(){
+        const name = $("#groupName").val();
+        const description = $("#groupDescription").val();
+
+        let query = 'id='+sessionStorage.getItem("group");
+        if (name.length>0){
+        query += '&groupName='+name;
+        }
+        if(description>0) {
+            query += '&description=' + description;
+        }
+
+        const url = 'http://localhost:5000/api/group?'+query;
+
+        jQuery.ajax({
+            url: url,
+            method: 'POST',
+            success: function (data) {
+                back();
+                $("#group").empty();
+                getGroup();
+            }
+        });
     }
 
 </script>
