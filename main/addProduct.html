@@ -101,6 +101,39 @@
     }
 
     function addProductToDB(){
+        const productName = $('#productName').val();
+        const productDescription = $('#productDescription').val();
+        const productPrice = $('#productPrice').val();
+        const productAmount = $('#productAmount').val();
+        const productMaker = $('#productMaker').val();
+        const productGroup = $('.form-select').val();
+
+        console.log("prod group - " + productGroup);
+
+
+        if(productName.length<1 || productDescription.length<1
+            || productPrice <=0 || productAmount <0 || productMaker.length < 1){
+            alert("Error");
+            //
+            // $('#alertPlace').addClass("alert alert-warning alert-dismissible fade show");
+            // $('#alertPlace').append("Error<button type='button' className='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>")
+            return;
+        }
+
+
+        const query = "name="+productName+"&description="+productDescription+"&price="+productPrice+"&amount="+productAmount+"&groupId="+productGroup+"&maker="+productMaker;;
+
+        console.log("guery - " + query);
+        $.ajax({
+            url: "http://localhost:5000/api/good?"+query,
+            method: "PUT",
+            success: function (){
+                // if(json!="true") {
+                //     alert("Product with such name already exist");
+                // }
+                document.location= 'main.html';
+            }
+        });
 
     }
 
