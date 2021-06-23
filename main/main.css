@@ -16,7 +16,7 @@ body {
 }
 
 #content{
-    margin-left: 20vw;
+    margin-left: 30vw;
     display: flex;
     float: left;
     column-count: 2;
