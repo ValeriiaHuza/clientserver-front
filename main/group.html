@@ -93,6 +93,9 @@
 </div>
 
 <div id="group">
+    <p id="name"></p>
+    <hr style='margin: 5px;'>
+    <p id="description" style='font-size: 13px;'></p>
 </div>
 
 <div id="firstButton">
@@ -130,9 +133,8 @@
                 var obj = JSON.parse(json);
                 console.log(obj);
 
-                $("#group").append("<p id='groupName' class='title'> "+ obj["groupname"]+
-                    "</p><hr style='margin: 5px;'>" +
-                    "<p style='font-size: 13px;'>"+obj["description"]+"</p>");
+                $("#name").append(obj["groupname"]);
+                $("#description").append(obj["description"]);
             }
         });
     }
@@ -193,7 +195,7 @@
         if (name.length>0){
         query += '&groupName='+name;
         }
-        if(description>0) {
+        if(description.length>0) {
             query += '&description=' + description;
         }
 
@@ -204,7 +206,8 @@
             method: 'POST',
             success: function (data) {
                 back();
-                $("#group").empty();
+                 $("#name").empty();
+                 $("#description").empty();
                 getGroup();
             }
         });
