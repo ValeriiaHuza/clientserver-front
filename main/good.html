@@ -31,13 +31,109 @@
     margin-left: 20vw;
     margin-right: 20vw;
   }
+
+  #message{
+    display: none;
+    position:fixed;
+    z-index:4;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+  }
+  #messagebox{
+    vertical-align: middle;
+    position: absolute;
+    top:5vh;
+    left:25vw;
+    width:50vw;
+    height: auto;
+    margin-bottom:10%;
+    padding:  30px;
+  }
+  #back{
+    vertical-align: middle;
+    position: absolute;
+    top:90vh;
+    left:37vw;
+    width:25vw;
+  }
+
+  .form-floating{
+    margin: 1vw;
+  }
+
+  .form-select{
+    margin: 1vw;
+  }
+
+  .input{
+    font-size: 18px;
+    margin: 10px;
+  }
+
+  #name{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
 </style>
 
+<div id="message" class="messagepanel " >
+  <div id="messagebox" class="card" >
+  <div class="form-floating mb-3">
+    <input id="productName" type="text" class="form-control" >
+    <label for="productName">Product name</label>
+  </div>
+  <div class="form-floating">
+    <input id="productDescription" type="text" class="form-control">
+    <label for="productDescription">Description</label>
+  </div>
+
+  <div class="form-floating">
+    <input id="productMaker" type="text" class="form-control">
+    <label for="productMaker">Maker</label>
+  </div>
+
+  <div class="form-floating">
+    <input id="productPrice" type="number" min="0" class="form-control">
+    <label for="productPrice">Price</label>
+  </div>
+
+  <div class="form-floating">
+    <input id="productAmount" type="number" min="0" class="form-control">
+    <label for="productAmount">Amount</label>
+  </div>
+
+  <select class="form-select groups" aria-label="Default select example">
+    <option disabled> Choose group for product</option>
+    <!--    <option value="1">One</option>-->
+    <!--    <option value="2">Two</option>-->
+    <!--    <option value="3">Three</option>-->
+  </select>
+
+    <a id="button" onclick='editProduct()' class='btn btn-outline-primary'>Update product</a>
+  </div>
+  <button id="back"  type="button" class="btn btn-primary" onclick="back()">Back</button>
+</div>
+
+
 <div id="good">
+  <p id="name"></p>
+  <hr style='margin: 5px;'>
+  <p id="description" style='font-size: 13px;'></p>
+  <p class="input" >Price : <span id="price"></span></p>
+  <p class="input">Amount : <span id="amount" ></span></p>
+  <p class="input">Maker : <span id="maker"></span></p>
+  <p class="input">Group : <span id="group" > </span></p>
 </div>
 
 <div id="firstButton">
-  <button type="button" class="btn btn-outline-primary">Update product</button>
+  <button type="button" class="btn btn-outline-primary" onclick="updateProduct()">Update product</button>
    <button type="button" class="btn btn-outline-danger" onclick="deleteProduct()">Delete product</button>
 </div>
 
@@ -62,14 +158,13 @@
         var obj = JSON.parse(json);
         console.log(obj);
 
-        $("#good").append("<p class='title'> "+ obj["prodname"]+"</p>"+
-                "</p><hr style='margin: 5px;'>" +
-                "<p style='font-size: 13px;'>"+obj["description"]+"</p>" +
-                "<p style='font-size: 18px; margin: 10px;' > Price: "+obj["price"]+" грн."+
-                "<br>Amount: <span id='product_price_field'>"+obj["amount"]+"</span> <br>Producer: "+obj["producer"]
-                +"</span> <br>Group: "+obj["groupName"]+"<p>"
+        $("#name").append(obj["prodname"]);
+        $("#description").append(obj["description"]);
+        $("#price").append(obj["price"] + " грн");
+        $("#amount").append(obj["amount"]);
+        $("#maker").append(obj["producer"]);
+        $("#group").append(obj["groupName"]);
 
-        );
       }
     });
   }
@@ -83,6 +178,97 @@
       method: 'DELETE',
       success: function (){
         document.location = "main.html";
+      }
+    });
+  }
+
+  function updateProduct(){
+    $(".messagepanel").show();
+    $("#messagebox").show();
+  }
+
+  function back() {
+    $(".messagepanel").hide();
+
+  }
+
+  fillFormSelect();
+
+  function fillFormSelect(){
+    jQuery.ajax({
+      url:'http://localhost:5000/api/groups',
+      method:'GET',
+      success : function (json) {
+        console.log(json);
+        var array = JSON.parse(json);
+        console.log("array - " + array);
+        for(var i=0; i<array.length; i++) {
+          var ar = array[i].split("#");
+          console.log("<option id='group/"+ ar[2] +"'>" + ar[0] + '</option>');
+          $(".groups")
+                  .append("<option id='group/"+ ar[2] +"'>" + ar[0] + '</option>');
+        }
+      }
+    });
+  }
+
+  function editProduct(){
+    const name = $("#productName").val();
+    const description = $("#productDescription").val();
+    const price = $("#productPrice").val();
+    const amount = $("#productAmount").val();
+    const maker = $("#productMaker").val();
+    const group = $('.form-select').val();
+
+    let query = 'id='+sessionStorage.getItem("good");
+
+    if (name.length>0){
+      query += '&name='+name;
+    }
+    if(description.length>0) {
+      query += '&description=' + description;
+    }
+
+    if(price.length>0 && price>0) {
+      query += '&price=' + price;
+    }
+    else if(price.length>0 && price<1){
+      alert("Uncorrect data!");
+    }
+
+    if(amount.length>0 && amount>0) {
+      query += '&amount=' + amount;
+    }
+    else if(amount.length>0 && amount<1){
+      alert("Uncorrect data!");
+    }
+
+    if(maker.length>0) {
+      query += '&maker=' + maker;
+    }
+
+    if(group.length>0) {
+      query += '&groupId=' + group;
+    }
+
+    console.log(query);
+
+    const url = 'http://localhost:5000/api/good?'+query;
+
+    jQuery.ajax({
+      url: url,
+      method: 'POST',
+      success: function (data) {
+        back();
+        $("#name").empty();
+        $("#description").empty();
+        $("#price").empty();
+        $("#amount").empty();
+        $("#maker").empty();
+        $("#group").empty();
+
+        getGood();
+
       }
     });
   }
