@@ -1,7 +1,13 @@
 #firstButton{
    width: 10vw;
     margin-left: calc(50% - 5vw);
-    margin-top: 50vh;
+    margin-top: 5vh;
+}
+
+#main{
+    margin-top: 20vh;
+    margin-left: 20vw;
+    margin-right: 20vw;
 }
 
 /*.btn-outline-primary{*/
