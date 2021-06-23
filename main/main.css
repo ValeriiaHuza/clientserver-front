@@ -28,4 +28,6 @@ body {
 
 .list-group {
     width: 25vw;
+    height: 50vh;
+    overflow: auto;
 }

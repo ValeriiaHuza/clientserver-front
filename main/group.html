@@ -21,8 +21,17 @@
         margin-left: 20vw;
         margin-right: 20vw;
     }
+
+    #goods{
+        margin-top: 3vh;
+        margin-left: 20vw;
+        margin-right: 20vw;
+
+        height: 50vh;
+        overflow: auto;
+    }
     #bottom{
-        margin-top: 60vh;
+        margin-top: 5vh;
         margin-left: 5vw;
     }
 
@@ -39,7 +48,12 @@
 <div id="firstButton">
 <button type="button" class="btn btn-outline-primary">Update group</button>
 <button type="button" class="btn btn-outline-danger" onclick="deleteGroup()">Delete group</button>
-<button type="button" class="btn btn-outline-primary">Show products in this group</button>
+<button type="button" class="btn btn-outline-primary" onclick="show()" >Show products in this group</button>
+</div>
+
+<div id="goods" class="list">
+    <div class="list-group goods">
+    </div>
 </div>
 
 <div id="bottom">
@@ -82,6 +96,29 @@
                 document.location = "main.html";
             }
         });
+    }
+
+    function show(){
+        $(".goods").empty();
+        jQuery.ajax({
+            url:'http://localhost:5000/api/goods/'+sessionStorage.getItem("group"),
+            method:'GET',
+            success : function (json) {
+                console.log(json);
+                var array = JSON.parse(json);
+                console.log("array - " + array);
+                for(var i=0; i<array.length; i++) {
+                    var ar = array[i].split("#");
+                    $(".goods")
+                        .append("<button id='goods/"+ ar[1] +"' onclick='clickOnProduct(" + ar[1]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + "</button>");
+                }
+            }
+        });
+    }
+
+    function clickOnProduct(id){
+        sessionStorage.setItem("good",id);
+        document.location='good.html';
     }
 
 </script>
