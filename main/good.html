@@ -2,12 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Good</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+  <title>Product</title>
 </head>
 <body>
 
-<div id="good">
+<style>
+  body{
+    margin: 1vw;
+    padding: 1vw;
+  }
+  #good{
+    margin-top: 5vh;
+    margin-left: 20vw;
+    margin-right: 20vw;
+  }
+  #bottom{
+    margin-top: 40vh;
+    margin-left: 5vw;
+  }
 
+  #firstButton {
+    margin-top: 5vh;
+    margin-left: 20vw;
+    margin-right: 20vw;
+  }
+</style>
+
+<div id="good">
+</div>
+
+<div id="firstButton">
+  <button type="button" class="btn btn-outline-primary">Update product</button>
+   <button type="button" class="btn btn-outline-danger" onclick="deleteProduct()">Delete product</button>
+</div>
+
+<div id="bottom">
+  <button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,7 +54,7 @@
 
   function getGood(){
     jQuery.ajax({
-      url: "http://localhost:5000/api/goods/"+sessionStorage.getItem("goods"),
+      url: "http://localhost:5000/api/good/"+sessionStorage.getItem("good"),
       method: 'GET',
       success: function (json) {
         console.log(json);
@@ -27,13 +62,30 @@
         var obj = JSON.parse(json);
         console.log(obj);
 
-        $("#goods").append("<p id='goodName' class='title'> "+ obj["goodname"]+
+        $("#good").append("<p class='title'> "+ obj["prodname"]+"</p>"+
                 "</p><hr style='margin: 5px;'>" +
-                "<p style='font-size: 13px;'>"+obj["description"]);
+                "<p style='font-size: 13px;'>"+obj["description"]+"</p>" +
+                "<p style='font-size: 18px; margin: 10px;' > Price: "+obj["price"]+" грн."+
+                "<br>Amount: <span id='product_price_field'>"+obj["amount"]+"</span> <br>Producer: "+obj["producer"]
+                +"</span> <br>Group: "+obj["groupName"]+"<p>"
+
+        );
       }
     });
   }
 
+  function deleteProduct(){
+    if(!confirm("Do you really want to delete this product?"))
+      return;
+
+    $.ajax({
+      url: "http://localhost:5000/api/good/"+sessionStorage.getItem("good"),
+      method: 'DELETE',
+      success: function (){
+        document.location = "main.html";
+      }
+    });
+  }
 </script>
 
 </body>

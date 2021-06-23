@@ -60,7 +60,7 @@
             for(var i=0; i<array.length; i++) {
                 var ar = array[i].split("#");
                 $(".groups")
-                    .append("<button id='group/"+ ar[2] +"' onclick='clickOnGroup(" + ar[2]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + " (id = " + (i+1) + ")</button>");
+                    .append("<button id='group/"+ ar[2] +"' onclick='clickOnGroup(" + ar[2]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] +"</button>");
             }
             }
         });
@@ -82,8 +82,8 @@
                 console.log("array - " + array);
                 for(var i=0; i<array.length; i++) {
                     var ar = array[i].split("#");
-                    $(".good")
-                        .append("<button id='goods/"+ ar[2] +"' onclick='clickOnGroup(" + ar[2]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + " (id = " + (i+1) + ")</button>");
+                    $(".goods")
+                        .append("<button id='goods/"+ ar[1] +"' onclick='clickOnProduct(" + ar[1]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + "</button>");
                 }
             }
         });
@@ -98,6 +98,7 @@
         sessionStorage.setItem("good",id);
         document.location='good.html';
     }
+
 </script>
 </body>
 </html>

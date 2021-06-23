@@ -16,7 +16,7 @@ body {
 }
 
 #content{
-    margin-left: 30vw;
+    margin-left: 15vw;
     display: flex;
     float: left;
     column-count: 2;
@@ -24,4 +24,8 @@ body {
 
 .list{
     margin: 5vw
+}
+
+.list-group {
+    width: 25vw;
 }
