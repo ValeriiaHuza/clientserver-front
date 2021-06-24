@@ -33,7 +33,7 @@
     }
 
     #bottom{
-        margin-top: 50vh;
+        margin-top: 10vh;
     }
 
     #goods{
@@ -55,8 +55,17 @@
     <label for="name">Product name</label>
 </div>
 
+<div class="form-floating mb-3">
+    <input id="minPrice" type="number" class="form-control" >
+    <label for="minPrice">Min price</label>
+</div>
 
-<a id="button" onclick='search()' class='btn btn-outline-primary'>Search</a>
+<div class="form-floating mb-3">
+    <input id="maxPrice" type="number" class="form-control" >
+    <label for="maxPrice">Max price</label>
+</div>
+
+<a id="button" onclick='searchProducts()' class='btn btn-outline-primary'>Search</a>
 
 <div id="goods" class="list">
     <div class="list-group goods">
@@ -73,10 +82,19 @@
 
 <script>
 
-    function search(){
+    function searchProducts(){
         $(".goods").empty();
 
-        let query = "name=" + name;
+        let query ="id="+0;
+        if ($("#name").val().length>0){
+            query += "&name=" +  $("#name").val();
+        }
+         if ($("#minPrice").val().length>0){
+            query += "&minPrice=" +  $("#minPrice").val();
+        }
+         if ($("#maxPrice").val().length>0){
+            query += "&maxPrice=" +  $("#maxPrice").val();
+        }
 
         jQuery.ajax({
             url:'http://localhost:5000/api/goods?'+query,
@@ -90,8 +108,17 @@
                     $(".goods")
                         .append("<button id='goods/"+ ar[1] +"' onclick='clickOnProduct(" + ar[1]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + "</button>");
                 }
+
+                if(array.length==0){
+                    alert("Nothing was found");
+                }
             }
         });
+    }
+
+    function clickOnProduct(id){
+        sessionStorage.setItem("good",id);
+        document.location='good.html';
     }
 
 </script>
