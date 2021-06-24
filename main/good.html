@@ -130,6 +130,7 @@
   <p class="input">Amount : <span id="amount" ></span></p>
   <p class="input">Maker : <span id="maker"></span></p>
   <p class="input">Group : <span id="group" > </span></p>
+  <p class="input">AllPrice : <span id="allPrice" > </span></p>
 </div>
 
 <div id="firstButton">
@@ -164,6 +165,7 @@
         $("#amount").append(obj["amount"]);
         $("#maker").append(obj["producer"]);
         $("#group").append(obj["groupName"]);
+        $("#allPrice").append(obj["allPrice"]);
 
       }
     });
@@ -266,6 +268,7 @@
         $("#amount").empty();
         $("#maker").empty();
         $("#group").empty();
+        $("#allPrice").empty();
 
         getGood();
 
