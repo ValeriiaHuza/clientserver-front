@@ -103,12 +103,14 @@
     <p id="name"></p>
     <hr style='margin: 5px;'>
     <p id="description" style='font-size: 13px;'></p>
+
+    <p style="font-size: 18px;
+    margin: 10px;" >AllPrice : <span id="allPrice" > </span></p>
 </div>
 
 <div id="firstButton">
 <button type="button" class="btn btn-outline-primary" onclick="updateGroup()">Update group</button>
 <button type="button" class="btn btn-outline-danger" onclick="deleteGroup()">Delete group</button>
-<button type="button" class="btn btn-outline-primary" onclick="show()" >Show products in this group</button>
 </div>
 
 <div id="goods" class="list">
@@ -129,8 +131,10 @@
 
     getGroup();
 
+
     function getGroup(){
         back();
+
         jQuery.ajax({
             url: "http://localhost:5000/api/group/"+sessionStorage.getItem("group"),
             method: 'GET',
@@ -160,7 +164,10 @@
         });
     }
 
-    function show(){
+    findAllProductsInGroup();
+
+    function findAllProductsInGroup(){
+        let price = +0;
         $(".goods").empty();
         jQuery.ajax({
             url:'http://localhost:5000/api/goods/'+sessionStorage.getItem("group"),
@@ -170,12 +177,23 @@
                 var array = JSON.parse(json);
                 console.log("array - " + array);
                 for(var i=0; i<array.length; i++) {
+                    $("#allPrice").empty();
                     var ar = array[i].split("#");
                     $(".goods")
                         .append("<button id='goods/"+ ar[1] +"' onclick='clickOnProduct(" + ar[1]+ ")' type='button' class='list-group-item list-group-item-action'>" + ar[0] + "</button>");
+
+                    price+=Number(ar[2]);
+
+                    $("#allPrice").append(price);
                 }
             }
         });
+
+
+    }
+
+    function show(){
+        $(".goods").show();
     }
 
     function clickOnProduct(id){
