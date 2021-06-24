@@ -13,6 +13,7 @@
 
 <style>
   body{
+    background-color: #99bddc;
     margin: 1vw;
     padding: 1vw;
   }
@@ -133,7 +134,7 @@
       <input id="newBuyAmount" type="number" min="0" class="form-control">
       <label for="newBuyAmount">How many were bought?</label>
     </div>
-    <a id="add" onclick='addProduct()' class='btn btn-outline-primary'>Buy product</a>
+    <a id="add" onclick='addProduct()' class='btn btn-primary'>Buy product</a>
 
   </div>
   <button type="button" class="btn btn-primary back" onclick="back()">Back</button>
@@ -147,7 +148,7 @@
       <input id="newSellAmount" type="number" min="0" class="form-control">
       <label for="newSellAmount">How many were sold?</label>
     </div>
-    <a id="sell" onclick='sellProduct()' class='btn btn-outline-primary'>Sell product</a>
+    <a id="sell" onclick='sellProduct()' class='btn btn-primary'>Sell product</a>
 
   </div>
   <button type="button" class="btn btn-primary back" onclick="back()">Back</button>
@@ -162,21 +163,21 @@
   <p class="input">Amount : <span id="amount" ></span></p>
   <p class="input">Maker : <span id="maker"></span></p>
   <p class="input">Group : <span id="group" > </span></p>
-  <p class="input">AllPrice : <span id="allPrice" > </span></p>
+  <p class="input">Total price amount on the store : <span id="allPrice" > </span></p>
 </div>
 
 <div id="sellAdd">
-  <button type="button" class="btn btn-outline-success" onclick="showAdd()">Add product</button>
-  <button type="button" class="btn btn-outline-danger" onclick="showSell()"> Sell product</button>
+  <button type="button" class="btn btn-success" onclick="showAdd()">Add product</button>
+  <button type="button" class="btn btn-danger" onclick="showSell()"> Sell product</button>
 </div>
 
 <div id="firstButton">
-  <button type="button" class="btn btn-outline-primary" onclick="updateProduct()">Update product</button>
-   <button type="button" class="btn btn-outline-danger" onclick="deleteProduct()">Delete product</button>
+  <button type="button" class="btn btn-primary" onclick="updateProduct()">Update product</button>
+   <button type="button" class="btn btn-danger" onclick="deleteProduct()">Delete product</button>
 </div>
 
 <div id="bottom">
-  <button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
+  <button type="button" class="btn btn-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -275,14 +276,14 @@
       query += '&price=' + price;
     }
     else if(price.length>0 && price<1){
-      alert("Uncorrect data!");
+      alert("Incorrect data!");
     }
 
     if(amount.length>0 && amount>0) {
       query += '&amount=' + amount;
     }
     else if(amount.length>0 && amount<1){
-      alert("Uncorrect data!");
+      alert("Incorrect data!");
     }
 
     if(maker.length>0) {
@@ -324,7 +325,7 @@
 
     let buy = $("#newBuyAmount").val();
     if(buy.length <0 || buy < 0 ) {
-      alert("Error");
+      alert("Incorrect number");
       return;
     }
     console.log("old amount" + sessionStorage.getItem("amount"));
@@ -361,7 +362,7 @@
 
     let sell = $("#newSellAmount").val();
     if(sell.length <0 || sell < 0 || (sessionStorage.getItem("amount")-sell) < 0 ) {
-      alert("Error");
+      alert("Incorrect amount");
       return;
     }
 

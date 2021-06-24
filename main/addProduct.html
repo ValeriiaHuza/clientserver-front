@@ -12,6 +12,7 @@
 
 <style>
     body{
+        background-color: #99bddc;
         padding: 5vw;
         overflow: hidden;
     }
@@ -68,10 +69,10 @@
 <!--    <option value="3">Three</option>-->
 </select>
 
-<a id="button" onclick='addProductToDB()' class='btn btn-outline-primary'>Add</a>
+<a id="button" onclick='addProductToDB()' class='btn btn-primary'>Add</a>
 
 <div id="bottom">
-    <button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
+    <button type="button" class="btn btn-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -113,7 +114,7 @@
 
         if(productName.length<1 || productDescription.length<1
             || productPrice <=0 || productAmount <0 || productMaker.length < 1){
-            alert("Error");
+            alert("Incorrect input");
             //
             // $('#alertPlace').addClass("alert alert-warning alert-dismissible fade show");
             // $('#alertPlace').append("Error<button type='button' className='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>")

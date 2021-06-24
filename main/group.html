@@ -13,6 +13,7 @@
 
 <style>
     body{
+        background-color: #99bddc;
         margin: 1vw;
         padding: 1vw;
     }
@@ -94,7 +95,7 @@
             <label for="groupDescription">Description</label>
         </div>
 
-        <a id="button" onclick='editGroup()' class='btn btn-outline-primary'>Update group</a>
+        <a id="button" onclick='editGroup()' class='btn btn-primary'>Update group</a>
     </div>
     <button id="back"  type="button" class="btn btn-primary" onclick="back()">Back</button>
 </div>
@@ -105,12 +106,12 @@
     <p id="description" style='font-size: 13px;'></p>
 
     <p style="font-size: 18px;
-    margin: 10px;" >AllPrice : <span id="allPrice" > </span></p>
+    margin: 10px;" >Total price amount of products : <span id="allPrice" > </span></p>
 </div>
 
 <div id="firstButton">
-<button type="button" class="btn btn-outline-primary" onclick="updateGroup()">Update group</button>
-<button type="button" class="btn btn-outline-danger" onclick="deleteGroup()">Delete group</button>
+<button type="button" class="btn btn-primary" onclick="updateGroup()">Update group</button>
+<button type="button" class="btn btn-danger" onclick="deleteGroup()">Delete group</button>
 </div>
 
 <div id="goods" class="list">
@@ -121,7 +122,7 @@
 
 
 <div id="bottom">
-<button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
+<button type="button" class="btn btn-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -171,7 +172,7 @@
         $("#allPrice").append(price);
         $(".goods").empty();
         jQuery.ajax({
-            url:'http://localhost:5000/api/goods/'+sessionStorage.getItem("group"),
+            url:'http://localhost:5000/api/goods/'+ sessionStorage.getItem("group"),
             method:'GET',
             success : function (json) {
                 console.log(json);

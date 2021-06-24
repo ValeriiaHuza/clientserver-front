@@ -12,6 +12,7 @@
 <body>
 <style>
     body{
+        background-color: #99bddc;
         padding: 5vw;
     }
     .form-floating{
@@ -40,10 +41,10 @@
     <label for="groupDescription">Description</label>
 </div>
 
-<a id="button" onclick='addGroupToDB()' class='btn btn-outline-primary'>Add</a>
+<a id="button" onclick='addGroupToDB()' class='btn btn-primary'>Add</a>
 
 <div id="bottom">
-    <button type="button" class="btn btn-outline-primary" onclick="document.location='main.html'">Back to the main page</button>
+    <button type="button" class="btn btn-primary" onclick="document.location='main.html'">Back to the main page</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -59,7 +60,7 @@
         const groupDescription = $('#groupDescription').val();
 
         if(groupName.length<1 || groupDescription.length<1){
-            alert("Error");
+            alert("Incorrect input");
             //
             // $('#alertPlace').addClass("alert alert-warning alert-dismissible fade show");
             // $('#alertPlace').append("Error<button type='button' className='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>")
